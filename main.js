@@ -25,6 +25,8 @@ if (isDevelopment) {
         electron: require(`${__dirname}/node_modules/electron`),
         ignored: /node_modules|[\/\\]\./
     });
+    require('electron-debug')({ showDevTools: true });
+
 }
 
 
@@ -35,11 +37,6 @@ function createWindow() {
         width: 1280,
         height: 800
     });
-
-
-    if (isDevelopment) {
-        mainWindow.webContents.openDevTools();
-    }
 
     mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
 

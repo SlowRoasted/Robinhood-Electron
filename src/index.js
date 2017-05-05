@@ -7,25 +7,24 @@ import { createStore, applyMiddleware } from 'redux'
 
 import Reducers from './reducers/reducers'
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import App from './components/app'
 
+require('./index.css');
 
 
-let muiTheme = getMuiTheme({
-    fontFamily: 'Microsoft YaHei'
-});
+// let muiTheme = getMuiTheme(lightBaseTheme);
+
+
 
 injectTapEventPlugin();
 
 const store = createStore(Reducers, applyMiddleware(thunk))
 
 render(
-    <MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={store}>
             <App />
         </Provider>
-    </MuiThemeProvider>,
+,
     document.getElementById('app')
 )

@@ -13,29 +13,38 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
 const events = window.require('events');
 const path = window.require('path');
 const fs = window.require('fs');
-
+const robinhoodGreen = '#21ce99';
 const electron = window.require('electron');
 const { ipcRenderer, shell } = electron;
 const { dialog } = electron.remote;
-
+let muiTheme = getMuiTheme({
+    fontFamily: 'Roboto, sans-serif',
+    palette: {
+        textColor: robinhoodGreen,
+        primary1Color: robinhoodGreen,
+        accent1Color: robinhoodGreen,
+    },
+});
 
 
 export const App = () => {
-
-    // this.state = {
-    //     userName: null,
-    //     password: null
-    // };
+    let username;
+    let password;
     const _handleLogin = () => {
+        console.log(username);
         let options = {
             type: 'info',
-            buttons: ['确定'],
-            title: '登录',
-            message: "this.state.userName",
+            buttons: ['Ok'],
+            title: 'Login Test',
+            message: `${username.getValue()}: ${password.getValue()}`,
             defaultId: 0,
             cancelId: 0
         };
@@ -47,24 +56,31 @@ export const App = () => {
         });
     }
 
+
     return (
-        <div style={styles.root}>
-            {/*<img style={styles.icon} src='public/img/app-icon.png' />*/}
-
-            <TextField
-                hintText='Enter your username'
-                value="{this.state.userName}" />
-            <TextField
-                hintText='Enter your password'
-                type='password'
-                value="{this.state.password}" />
-
-            <div style={styles.buttons_container}>
-                <RaisedButton
-                    label="Login" primary={true}
-                    onClick={_handleLogin} />
+        <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
+            <div style={styles.root} className='robinhood-color'>
+                <img style={styles.icon} src='img/doge.png' />
+                <h2>Robinhood-Electron</h2>
+                <h3>UNOFFICIAL desktop client for Robinhood</h3>
+                <br/>
+                <TextField
+                    hintText='Enter your username'
+                    ref={(node) => username = node} />
+                <TextField
+                    hintText='Enter your password'
+                    type='password'
+                    ref={(node) => password = node} />
+                <div style={styles.buttons_container}>
+                    <RaisedButton
+                        label="Login" primary={true}
+                        onClick={_handleLogin} />
+                    <RaisedButton
+                        label="Clear" primary={false} style={{ marginLeft: 60 }}
+                        onClick={_handleLogin} />
+                </div>
             </div>
-        </div>
+        </MuiThemeProvider>
     );
 
 
@@ -84,8 +100,7 @@ const styles = {
         justifyContent: 'center'
     },
     icon: {
-        width: 100,
-        height: 100,
+        width: 150,
         marginBottom: 40
     },
     buttons_container: {
@@ -101,6 +116,11 @@ const styles = {
 export default connect(
     (state) => {
         return {
+        }
+    },
+    (dispatch) => {
+        return {
+
         }
     }
 )(App)
