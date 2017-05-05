@@ -1,5 +1,6 @@
 const AppReducer = (state = {
-  test: "123",
+  username: '',
+  password:''
 }, action) => {
   switch (action.type) {
     default:
