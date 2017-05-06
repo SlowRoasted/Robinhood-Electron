@@ -12,11 +12,6 @@ import App from './components/app'
 
 require('./index.css');
 
-
-// let muiTheme = getMuiTheme(lightBaseTheme);
-
-
-
 injectTapEventPlugin();
 
 const store = createStore(Reducers, applyMiddleware(thunk))
@@ -24,7 +19,6 @@ const store = createStore(Reducers, applyMiddleware(thunk))
 render(
         <Provider store={store}>
             <App />
-        </Provider>
-,
+        </Provider>,
     document.getElementById('app')
 )

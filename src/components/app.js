@@ -25,6 +25,7 @@ const robinhoodGreen = '#21ce99';
 const electron = window.require('electron');
 const { ipcRenderer, shell } = electron;
 const { dialog } = electron.remote;
+
 let muiTheme = getMuiTheme({
     fontFamily: 'Roboto, sans-serif',
     palette: {
