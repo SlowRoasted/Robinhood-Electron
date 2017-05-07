@@ -10,15 +10,32 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './components/app'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+
 require('./index.css');
 
 injectTapEventPlugin();
 
 const store = createStore(Reducers, applyMiddleware(thunk))
 
+const robinhoodGreen = '#21ce99';
+let muiTheme = getMuiTheme({
+    fontFamily: 'Roboto, sans-serif',
+    palette: {
+        textColor: robinhoodGreen,
+        primary1Color: robinhoodGreen,
+        accent1Color: robinhoodGreen,
+    },
+});
+
 render(
+    <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
         <Provider store={store}>
             <App />
-        </Provider>,
+        </Provider>
+    </MuiThemeProvider>,
     document.getElementById('app')
 )

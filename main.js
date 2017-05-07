@@ -25,8 +25,11 @@ if (isDevelopment) {
         electron: require(`${__dirname}/node_modules/electron`),
         ignored: /node_modules|[\/\\]\./
     });
-    require('electron-debug')({ showDevTools: true });
+    require('electron-debug')({
+        showDevTools: true
+    });
 
+    require('electron-context-menu')();
 }
 
 
@@ -43,6 +46,7 @@ function createWindow() {
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
+
 }
 
 app.on('ready', createWindow);
