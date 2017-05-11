@@ -1,14 +1,18 @@
-'use strict';
+'use strict'
 
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import Login from './login';;
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import { connect } from 'react-redux'
+import Login from './login'
+import Main from './main'
+import PropTypes from 'prop-types'
 
 export const App = ({ location }) => {
     if (location == Locations.LOGIN) {
         return (<Login />)
+    }
+    else if (location == Locations.MAIN) {
+        return (<Main />)
     }
 }
 

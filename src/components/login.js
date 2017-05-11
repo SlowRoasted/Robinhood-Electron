@@ -1,4 +1,5 @@
 /*
+ * Editted from code by the author below.
  * Copyright (C) 2016. All Rights Reserved.
  *
  * @author  Arno Zhang
@@ -6,24 +7,44 @@
  * @date    2016/06/22
  */
 
-'use strict';
+'use strict'
 
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import { connect } from 'react-redux'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import PropTypes from 'prop-types'
+import { ActionTypes } from '../actions'
+import { testLogin } from './loginActions'
 
-const events = window.require('events');
-const path = window.require('path');
-const fs = window.require('fs');
-const electron = window.require('electron');
-const { ipcRenderer, shell } = electron;
-const { dialog } = electron.remote;
+const events = window.require('events')
+const electron = window.require('electron')
+const { dialog } = electron.remote
 
 
-export const Login = ({username, password}) => {
+export const Login = ({ username, password, updateUsername, updatePassword,
+    login, usernameErrorText, passwordErrorText, updateUsernameErrorText,
+    updatePasswordErrorText }) => {
+
+    const _login = () => {
+        if (username == '') {
+            updateUsernameErrorText('Username is required')
+        }
+        else {
+            updateUsernameErrorText('')
+        }
+        if (password == '') {
+            updatePasswordErrorText('Password is required')
+        }
+        else {
+            updatePasswordErrorText('')
+        }
+        if (username != '' && password != '') {
+            login(username, password)
+        }
+    }
+
 
     return (
         <div style={styles.root} className='robinhood-color'>
@@ -33,24 +54,35 @@ export const Login = ({username, password}) => {
             <br />
             <TextField
                 hintText='Enter your username'
-                ref={(node) => username = node} />
+                value={username}
+                onChange={updateUsername.bind(this)}
+                errorText={usernameErrorText} />
             <TextField
                 hintText='Enter your password'
                 type='password'
-                ref={(node) => password = node} />
+                value={password}
+                onChange={updatePassword.bind(this)}
+                errorText={passwordErrorText} />
             <div style={styles.buttons_container}>
                 <RaisedButton
-                    label="Login" primary={true} />
+                    label="Login" primary={true} onClick={_login} />
                 <RaisedButton
                     label="Clear" primary={false} style={{ marginLeft: 60 }} />
             </div>
         </div>
-    );
+    )
 }
 
 const propTypes = {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
+    updateUsername: PropTypes.func.isRequired,
+    updatePassword: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    usernameErrorText: PropTypes.string.isRequired,
+    passwordErrorText: PropTypes.string.isRequired,
+    updateUsernameErrorText: PropTypes.func.isRequired,
+    updatePasswordErrorText: PropTypes.func.isRequired
 }
 
 const styles = {
@@ -78,18 +110,37 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center'
     }
-};
+}
 
 export default connect(
     (state) => {
         return {
             username: state.login.username,
-            password: state.login.password
+            password: state.login.password,
+            usernameErrorText: state.login.usernameErrorText,
+            passwordErrorText: state.login.passwordErrorText
         }
     },
     (dispatch) => {
         return {
-
+            updateUsername: (event) => dispatch({
+                type: ActionTypes.UPDATE_USERNAME,
+                username: event.target.value
+            }),
+            updatePassword: (event) => dispatch({
+                type: ActionTypes.UPDATE_PASSWORD,
+                password: event.target.value
+            }),
+            login: (username, password) =>
+                dispatch(testLogin(username, password)),
+            updateUsernameErrorText: (text) => dispatch({
+                type: ActionTypes.UPDATE_USERNAME_ERROR,
+                error: text
+            }),
+            updatePasswordErrorText: (text) => dispatch({
+                type: ActionTypes.UPDATE_PASSWORD_ERROR,
+                error: text
+            })
         }
     }
 )(Login)
