@@ -7,6 +7,9 @@
     font-family: Roboto, sans-serif;
 }
 
+
+/*Importing Roboto font from file*/
+
 @font-face {
     font-family: 'Roboto';
     src: url('../fonts/Roboto-Regular-webfont.woff') format('woff');

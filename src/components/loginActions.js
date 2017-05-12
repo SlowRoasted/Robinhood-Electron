@@ -37,7 +37,9 @@ export const testLogin = (username, password) => {
                     dispatch(errorLogin())
                 }
                 else {
+                    // When login success, save credentials in robinhood reducer
                     dispatch(setCredentials(credentials))
+                    // TODO Potential race condition here? 
                     dispatch(goToMain())
                 }
             })

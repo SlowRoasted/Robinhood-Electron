@@ -1,9 +1,9 @@
 'use strict';
 
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 export const Main = ({ debug }) => {
     return (

@@ -1,6 +1,7 @@
 import { ActionTypes } from '../actions'
 
-// This handles all robinhood related actions, and stores the app-wide client
+// This handles all robinhood related actions, and stores login credentials for
+// future api calls, should handle most api calls for main page.
 const RobinhoodReducer = (state = {
     credentials: {},
     debug: ''
@@ -12,6 +13,7 @@ const RobinhoodReducer = (state = {
                 credentials: action.credentials
             }
         case ActionTypes.DEBUG:
+        // Show a debug text in main
             return {
                 ...state,
                 debug: action.text

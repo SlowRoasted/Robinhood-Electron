@@ -18,14 +18,10 @@ import PropTypes from 'prop-types'
 import { ActionTypes } from '../actions'
 import { testLogin } from './loginActions'
 
-const events = window.require('events')
-const electron = window.require('electron')
-const { dialog } = electron.remote
-
-
+// Login UI, this is the first page at app launch.
 export const Login = ({ username, password, updateUsername, updatePassword,
     login, usernameErrorText, passwordErrorText, updateUsernameErrorText,
-    updatePasswordErrorText }) => {
+    updatePasswordErrorText, clearInputs }) => {
 
     const _login = () => {
         if (username == '') {
@@ -67,7 +63,8 @@ export const Login = ({ username, password, updateUsername, updatePassword,
                 <RaisedButton
                     label="Login" primary={true} onClick={_login} />
                 <RaisedButton
-                    label="Clear" primary={false} style={{ marginLeft: 60 }} />
+                    label="Clear" primary={false} style={{ marginLeft: 60 }}
+                    onClick={clearInputs} />
             </div>
         </div>
     )
@@ -82,7 +79,8 @@ const propTypes = {
     usernameErrorText: PropTypes.string.isRequired,
     passwordErrorText: PropTypes.string.isRequired,
     updateUsernameErrorText: PropTypes.func.isRequired,
-    updatePasswordErrorText: PropTypes.func.isRequired
+    updatePasswordErrorText: PropTypes.func.isRequired,
+    clearInputs: PropTypes.func.isRequired
 }
 
 const styles = {
@@ -140,6 +138,9 @@ export default connect(
             updatePasswordErrorText: (text) => dispatch({
                 type: ActionTypes.UPDATE_PASSWORD_ERROR,
                 error: text
+            }),
+            clearInputs: () => dispatch({
+                type: ActionTypes.CLEAR_LOGIN_INPUTS
             })
         }
     }

@@ -7,6 +7,7 @@ import Login from './login'
 import Main from './main'
 import PropTypes from 'prop-types'
 
+// Container for all pages, handles page navigation
 export const App = ({ location }) => {
     if (location == Locations.LOGIN) {
         return (<Login />)
@@ -29,8 +30,5 @@ export default connect(
         return {
             location: state.app.location
         }
-    },
-    (dispatch) => {
-        return {}
     }
 )(App)
