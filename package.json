@@ -6,6 +6,8 @@
   "scripts": {
     "start": "electron .",
     "watch": "watchify ./src/*.js -t babelify -t browserify-css -o dist/bundle.js --debug --verbose"
+    // "package": "npm-run-all package:*",
+    // "package:mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --out=out --icon=assets/app-icon/mac/app.icns --osx-sign.identity='Developer ID Application: GitHub' --extend-info=assets/mac/info.plist"
   },
   "author": "Pinghao Qi",
   "license": "MIT",
