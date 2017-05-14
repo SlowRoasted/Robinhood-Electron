@@ -4,7 +4,10 @@ import { ActionTypes } from '../actions'
 // inputs, error texts, etc.
 const LoginReducer = (state = {
     username: '',
-    password: ''
+    password: '',
+    usernameErrorText: '',
+    passwordErrorText: '',
+    loading: false
 }, action) => {
     switch (action.type) {
         case ActionTypes.UPDATE_USERNAME:
@@ -27,14 +30,21 @@ const LoginReducer = (state = {
                 ...state,
                 passwordErrorText: action.error
             }
+        // Clear button also clears error texts
         case ActionTypes.CLEAR_LOGIN_INPUTS:
-            // Clear button also clears error texts
             return {
                 ...state,
                 username: '',
                 password: '',
                 usernameErrorText: '',
                 passwordErrorText: ''
+            }
+        // Shows loading animation
+        case ActionTypes.LOGIN_TOGGLE_LOADING:
+            var newLoadingState = !state.loading
+            return {
+                ...state,
+                loading: newLoadingState
             }
         default:
             return state

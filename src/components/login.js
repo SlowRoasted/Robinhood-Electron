@@ -14,6 +14,8 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import CircularProgress from 'material-ui/CircularProgress';
+
 import PropTypes from 'prop-types'
 import { ActionTypes } from '../actions'
 import { testLogin } from './loginActions'
@@ -21,7 +23,7 @@ import { testLogin } from './loginActions'
 // Login UI, this is the first page at app launch.
 export const Login = ({ username, password, updateUsername, updatePassword,
     login, usernameErrorText, passwordErrorText, updateUsernameErrorText,
-    updatePasswordErrorText, clearInputs }) => {
+    updatePasswordErrorText, clearInputs, loading }) => {
 
     const _login = () => {
         if (username == '') {
@@ -48,7 +50,7 @@ export const Login = ({ username, password, updateUsername, updatePassword,
 
         if (charCode == '13') {
             // Enter pressed
-           _login()
+            _login()
         }
     }
 
@@ -78,7 +80,15 @@ export const Login = ({ username, password, updateUsername, updatePassword,
                     label="Clear" primary={false} style={{ marginLeft: 60 }}
                     onClick={clearInputs} />
             </div>
-        </div>
+            {/*show a full screen loading circular progress after user clickes login*/}
+            {loading &&
+                (<div style={styles.loadingBackground}>
+                    <div style={styles.loadingContainer}>
+                        <CircularProgress size={60} thickness={5}
+                            style={styles.loadingWheel} />
+                    </div>
+                </div>)}
+        </div >
     )
 }
 
@@ -92,7 +102,8 @@ const propTypes = {
     passwordErrorText: PropTypes.string.isRequired,
     updateUsernameErrorText: PropTypes.func.isRequired,
     updatePasswordErrorText: PropTypes.func.isRequired,
-    clearInputs: PropTypes.func.isRequired
+    clearInputs: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 }
 
 const styles = {
@@ -119,6 +130,23 @@ const styles = {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    loadingBackground: {
+        position: 'absolute',
+        display: 'table',
+        width: '100%',
+        height: '100%',
+        zIndex: 1000,
+        backgroundColor: 'rgba(52, 52, 52, .7)',
+        textAlign: 'center',
+    },
+    loadingContainer: {
+        display: 'table-cell',
+        verticalAlign: 'middle'
+
+    },
+    loadingWheel: {
+        zIndex: 1000,
     }
 }
 
@@ -128,7 +156,8 @@ export default connect(
             username: state.login.username,
             password: state.login.password,
             usernameErrorText: state.login.usernameErrorText,
-            passwordErrorText: state.login.passwordErrorText
+            passwordErrorText: state.login.passwordErrorText,
+            loading: state.login.loading
         }
     },
     (dispatch) => {
