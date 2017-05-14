@@ -41,6 +41,17 @@ export const Login = ({ username, password, updateUsername, updatePassword,
         }
     }
 
+    // Create shortcut to call login when "Enter" is pressed
+    const submitOnEnterPress = (e) => {
+        var event = e || window.event;
+        var charCode = event.which || event.keyCode;
+
+        if (charCode == '13') {
+            // Enter pressed
+           _login()
+        }
+    }
+
 
     return (
         <div style={styles.root} className='robinhood-color'>
@@ -58,7 +69,8 @@ export const Login = ({ username, password, updateUsername, updatePassword,
                 type='password'
                 value={password}
                 onChange={updatePassword.bind(this)}
-                errorText={passwordErrorText} />
+                errorText={passwordErrorText}
+                onKeyPress={submitOnEnterPress.bind(this)} />
             <div style={styles.buttons_container}>
                 <RaisedButton
                     label="Login" primary={true} onClick={_login} />

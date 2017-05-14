@@ -22,6 +22,13 @@ const errorLogin = () => {
     }
 }
 
+const logUserJson = (text) => {
+    return {
+        type: ActionTypes.DEBUG,
+        text: text
+    }
+}
+
 export const testLogin = (username, password) => {
     return (dispatch) => {
         let credentials = {
@@ -39,8 +46,8 @@ export const testLogin = (username, password) => {
                 else {
                     // When login success, save credentials in robinhood reducer
                     dispatch(setCredentials(credentials))
-                    // TODO Potential race condition here? 
                     dispatch(goToMain())
+                    dispatch(logUserJson(body))
                 }
             })
         });
