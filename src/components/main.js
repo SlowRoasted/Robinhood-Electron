@@ -4,12 +4,15 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { Grid, Row, Col } from 'react-flexbox-grid'
 
 export const Main = ({ debug }) => {
     return (
-        <div>
-            {debug==''?'Empty Debug':debug}
-        </div>
+        <Grid fluid>
+            <Row>
+                {debug == '' ? 'Empty Debug' : debug}
+            </Row>
+        </Grid>
     )
 }
 const propTypes = {

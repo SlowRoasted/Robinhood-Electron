@@ -13,7 +13,7 @@ const RobinhoodReducer = (state = {
                 credentials: action.credentials
             }
         case ActionTypes.DEBUG:
-        // Show a debug text in main
+            // Show a debug text in main
             return {
                 ...state,
                 debug: action.text

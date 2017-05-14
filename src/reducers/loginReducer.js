@@ -28,7 +28,7 @@ const LoginReducer = (state = {
                 passwordErrorText: action.error
             }
         case ActionTypes.CLEAR_LOGIN_INPUTS:
-        // Clear button also clears error texts
+            // Clear button also clears error texts
             return {
                 ...state,
                 username: '',
