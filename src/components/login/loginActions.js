@@ -1,5 +1,5 @@
-import { ActionTypes } from '../actions'
-import { Locations } from './app'
+import { ActionTypes } from '../../actions'
+import { Locations } from '../app'
 
 const setCredentials = (credentials) => {
     return {

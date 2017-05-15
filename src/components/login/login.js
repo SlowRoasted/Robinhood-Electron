@@ -17,7 +17,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress';
 
 import PropTypes from 'prop-types'
-import { ActionTypes } from '../actions'
+import { ActionTypes } from '../../actions'
 import { testLogin } from './loginActions'
 
 // Login UI, this is the first page at app launch.
