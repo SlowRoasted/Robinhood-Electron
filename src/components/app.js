@@ -3,17 +3,19 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import Login from './login'
-import Main from './main'
+import Login from './login/login'
+import Main from './main/main'
+import Debug from './debugUI'
 import PropTypes from 'prop-types'
-
 // Container for all pages, handles page navigation
 export const App = ({ location }) => {
-    if (location == Locations.LOGIN) {
-        return (<Login />)
-    }
-    else if (location == Locations.MAIN) {
-        return (<Main />)
+    switch (location) {
+        case Locations.LOGIN:
+            return (<Login />)
+        case Locations.MAIN:
+            return (<Main />)
+        default:
+            return (<Debug />)
     }
 }
 
@@ -23,7 +25,8 @@ const propTypes = {
 
 export const Locations = {
     LOGIN: 'login',
-    MAIN: 'main'
+    MAIN: 'main',
+    DEBUG: 'debug'
 }
 export default connect(
     (state) => {

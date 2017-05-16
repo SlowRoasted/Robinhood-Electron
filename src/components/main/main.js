@@ -4,13 +4,18 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Grid, Row, Col } from 'react-flexbox-grid'
+
+
 
 class Main extends Component {
     componentDidMount() {
+        const { getPositions } = this.props
         const update = () => {
-            console.log('tick')
-            this.timer = setTimeout(update, 500);
+            getPositions(() => {
+                console.log('tick')
+                this.timer = setTimeout(update, 10000);
+            })
+
         }
         update.bind(this)
         update()
@@ -21,14 +26,31 @@ class Main extends Component {
         clearTimeout(this.timer);
     }
     render() {
-        const { debug } = this.props
+        const { debug, positions, user } = this.props
+
         return (
             <Grid fluid>
                 <Row>
-                    <Col xs={4} md={3}>
-                        <div style={styles.text}>
-                            {JSON.stringify(debug == '' ? 'Empty Debug' : debug)}
-                        </div>
+                    <Col xs={4} md={3} style={styles.wrapText}>
+                        <Row>
+                            <label>
+                                Hi! {user.first_name} {user.last_name}
+                            </label>
+                            <br />
+                            <label>
+                                Username: {user.username}
+                            </label>
+                        </Row>
+                        <Row>
+                            <Divider />
+                            <List>
+                                {positions.map((elem) =>
+                                    <ListItem
+                                        key={elem.instrument}
+                                        primaryText={elem.average_buy_price} />
+                                )}
+                            </List>
+                        </Row>
                     </Col>
                     <Col xs={8} md={9}>
                         <div style={styles.text}>
@@ -36,16 +58,19 @@ class Main extends Component {
                         </div>
                     </Col>
                 </Row>
-            </Grid>
+            </Grid >
         )
     }
 }
 const propTypes = {
-    debug: PropTypes.string
+    debug: PropTypes.string,
+    getPositions: PropTypes.func.isRequired,
+    positions: PropTypes.array.isRequired,
+    user: PropTypes.object.isRequired
 }
 
 const styles = {
-    text: {
+    wrapText: {
         wordWrap: 'break-word'
     }
 }
@@ -53,10 +78,16 @@ const styles = {
 export default connect(
     (state) => {
         return {
-            debug: state.robinhood.debug
+            debug: state.robinhood.debug,
+            positions: state.robinhood.positions,
+            user: state.robinhood.user,
+            account: state.robinhood.account,
+            portfolio: state.robinhood.portfolio
         }
     },
     (dispatch) => {
-        return {}
+        return {
+            getPositions: (callback) => dispatch(getPositions(callback))
+        }
     }
 )(Main)

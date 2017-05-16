@@ -4,7 +4,11 @@ import { ActionTypes } from '../actions'
 // future api calls, should handle most api calls for main page.
 const RobinhoodReducer = (state = {
     credentials: {},
-    debug: ''
+    debug: '',
+    positions: [],
+    user: {},
+    account: {},
+    portfolio: {}
 }, action) => {
     switch (action.type) {
         case ActionTypes.LOGIN:
@@ -17,6 +21,26 @@ const RobinhoodReducer = (state = {
             return {
                 ...state,
                 debug: action.text
+            }
+        case ActionTypes.SET_POSITIONS:
+            return {
+                ...state,
+                positions: action.positions
+            }
+        case ActionTypes.SET_USER:
+            return {
+                ...state,
+                user: action.user
+            }
+        case ActionTypes.SET_ACCOUNT:
+            return {
+                ...state,
+                account: action.account
+            }
+        case ActionTypes.SET_PORTFOLIO:
+            return {
+                ...state,
+                portfolio: action.portfolio
             }
         default:
             return state
