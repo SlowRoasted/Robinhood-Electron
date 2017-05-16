@@ -1,6 +1,6 @@
 import { ActionTypes, setDebugString } from '../../actions'
 import { Locations } from '../app'
-import { updateAccountAndPortfolio } from '../main/mainActions'
+import { getAccountAndPortfolio } from '../main/mainActions'
 const setCredentials = (credentials) => {
     return {
         type: ActionTypes.LOGIN,
@@ -37,6 +37,13 @@ const loginToggleLoading = () => {
     }
 }
 
+const setRobinhoodClient = (client) => {
+    return {
+        type: ActionTypes.SET_ROBINHOOD_CLIENT,
+        client: client
+    }
+}
+
 export const testLogin = (username, password) => {
     return (dispatch) => {
         let credentials = {
@@ -56,10 +63,10 @@ export const testLogin = (username, password) => {
                 }
                 else {
                     dispatch(setCredentials(credentials))
-                    dispatch(updateAccountAndPortfolio(Robinhood))
+                    dispatch(setRobinhoodClient(Robinhood))
+                    // dispatch(getAccountAndPortfolio())
                     dispatch(setUser(body))
                     dispatch(setDebugString(body))
-
                     // Login success, getting accounts data
                     dispatch(loginToggleLoading())
                     // When login success, save credentials in robinhood reducer

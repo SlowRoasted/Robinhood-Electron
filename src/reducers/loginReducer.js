@@ -7,6 +7,7 @@ const LoginReducer = (state = {
     password: '',
     usernameErrorText: '',
     passwordErrorText: '',
+    // If the loading animation is shown
     loading: false
 }, action) => {
     switch (action.type) {

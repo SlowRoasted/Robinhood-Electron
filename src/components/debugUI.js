@@ -22,8 +22,7 @@ export const Debug = () => {
                 title="Robinhood-Electron"
                 showMenuIconButton={false}
             />
-            <Drawer containerStyle={styles.leftNavContainer}
-                style={styles.leftNav}>
+            <Drawer containerStyle={styles.leftNavContainer}>
                 <Card containerStyle={styles.userCard}>
                     <CardHeader
                         title="Hi! Debug Bug"
@@ -107,17 +106,17 @@ const styles = {
     },
     leftNavContainer: {
         top: '64px',
-        overflow: 'hidden'
-    },
-    leftNav: {
+        overflow: 'hidden',
+        height: 'calc(100% - 64px)'
     },
     rightContent: {
         paddingLeft: '256px'
     },
     stocksList: {
         marginTop: '235px',
-        height: '800px',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        padding: '0px',
+        height: 'calc(100% - 235px)'
     }
 }
 

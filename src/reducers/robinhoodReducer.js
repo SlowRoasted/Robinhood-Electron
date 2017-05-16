@@ -5,10 +5,17 @@ import { ActionTypes } from '../actions'
 const RobinhoodReducer = (state = {
     credentials: {},
     debug: '',
+    // Quantity and avg price for all currently held stocks
     positions: [],
+    // Ticker and price url for all currently held stocks
+    positionInstruments: [],
+    // User info including name, username, email, etc
     user: {},
     account: {},
-    portfolio: {}
+    // Overall portfolio info
+    portfolio: {},
+    // Should be an authenticated Robinhood client shared by the app
+    client: {}
 }, action) => {
     switch (action.type) {
         case ActionTypes.LOGIN:
@@ -23,9 +30,14 @@ const RobinhoodReducer = (state = {
                 debug: action.text
             }
         case ActionTypes.SET_POSITIONS:
+            // Some old portfolio entries with 0 quantities returned from server
+            let positions = action.positions ?
+                action.positions.filter((inst) => {
+                    return parseFloat(inst.quantity) > 0
+                }) : []
             return {
                 ...state,
-                positions: action.positions
+                positions: positions
             }
         case ActionTypes.SET_USER:
             return {
@@ -41,6 +53,16 @@ const RobinhoodReducer = (state = {
             return {
                 ...state,
                 portfolio: action.portfolio
+            }
+        case ActionTypes.SET_POSITION_INSTRUMENTS:
+            return {
+                ...state,
+                positionInstruments: action.positionInstruments
+            }
+        case ActionTypes.SET_ROBINHOOD_CLIENT:
+            return {
+                ...state,
+                client: action.client
             }
         default:
             return state
