@@ -57,7 +57,7 @@ export const Login = ({ username, password, updateUsername, updatePassword,
 
     return (
         <div style={styles.root} className='robinhood-color'>
-            <img style={styles.icon} src='img/doge.png' />
+            <img style={styles.icon} src='img/logo.png' />
             <h2>Robinhood-Electron</h2>
             <h3>UNOFFICIAL desktop client for Robinhood</h3>
             <br />

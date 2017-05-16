@@ -20,7 +20,7 @@ export const Debug = () => {
         <div >
             <AppBar
                 title="Robinhood-Electron"
-                iconElementLeft={<img style={styles.icon} src='img/doge.png' />}
+                iconElementLeft={<img style={styles.icon} src='img/logo.png' />}
             />
             <Drawer containerStyle={styles.leftNavContainer}>
                 <Card containerStyle={styles.userCard}>
