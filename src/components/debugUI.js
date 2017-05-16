@@ -20,66 +20,71 @@ export const Debug = () => {
         <div >
             <AppBar
                 title="Robinhood-Electron"
+                showMenuIconButton={false}
             />
-            <Grid fluid style={styles.grid}>
-
-                <Drawer>
-                    <Card>
-                        <CardHeader
-                            title="Hi! Debug Bug"
-                            subtitle="Username: bbuugg"
-                            actAsExpander={false}
-                            showExpandableButton={false}
-                        />
-                        <CardText expandable={false} style={styles.userCardText}>
-                            <h3>PORTFOLIO VALUE</h3>
-                            $12,000
+            <Drawer containerStyle={styles.leftNavContainer}
+                style={styles.leftNav}>
+                <Card containerStyle={styles.userCard}>
+                    <CardHeader
+                        title="Hi! Debug Bug"
+                        subtitle="Username: bbuugg"
+                        actAsExpander={false}
+                        showExpandableButton={false}
+                    />
+                    <CardText expandable={false} style={styles.userCardText}>
+                        <h3>PORTFOLIO VALUE</h3>
+                        $12,000
                         <h3> BUYING POWER </h3>
-                            $2,000
+                        $2,000
                     </CardText>
-                    </Card>
-                    <List>
-                        <ListItem
-                            primaryText="Stock1" />
-                        <ListItem
-                            primaryText="Stock2" />
-                        <ListItem
-                            primaryText="Stock3" />
-                        <ListItem
-                            primaryText="Stock4" />
-                        <ListItem
-                            primaryText="Stock1" />
-                        <ListItem
-                            primaryText="Stock2" />
-                        <ListItem
-                            primaryText="Stock3" />
-                        <ListItem
-                            primaryText="Stock4" />
-                        <ListItem
-                            primaryText="Stock1" />
-                        <ListItem
-                            primaryText="Stock2" />
-                        <ListItem
-                            primaryText="Stock3" />
-                        <ListItem
-                            primaryText="Stock4" />
-                        <ListItem
-                            primaryText="Stock1" />
-                        <ListItem
-                            primaryText="Stock2" />
-                        <ListItem
-                            primaryText="Stock3" />
-                        <ListItem
-                            primaryText="Stock4" />
-                    </List>
-                </Drawer>
-
-                <Row>
-                    <Col xs={8} md={9} style={styles.wrapText}>
-                        <p>
-                            Debug text
-                    </p>
-                    </Col>
+                    <Divider />
+                </Card>
+                <List style={styles.stocksList}>
+                    <ListItem
+                        primaryText="Stock1" />
+                    <ListItem
+                        primaryText="Stock2" />
+                    <ListItem
+                        primaryText="Stock3" />
+                    <ListItem
+                        primaryText="Stock4" />
+                    <ListItem
+                        primaryText="Stock1" />
+                    <ListItem
+                        primaryText="Stock2" />
+                    <ListItem
+                        primaryText="Stock3" />
+                    <ListItem
+                        primaryText="Stock4" />
+                    <ListItem
+                        primaryText="Stock1" />
+                    <ListItem
+                        primaryText="Stock2" />
+                    <ListItem
+                        primaryText="Stock3" />
+                    <ListItem
+                        primaryText="Stock4" />
+                    <ListItem
+                        primaryText="Stock1" />
+                    <ListItem
+                        primaryText="Stock2" />
+                    <ListItem
+                        primaryText="Stock3" />
+                    <ListItem
+                        primaryText="Stock4" />
+                    <ListItem
+                        primaryText="Stock1" />
+                    <ListItem
+                        primaryText="Stock2" />
+                    <ListItem
+                        primaryText="Stock3" />
+                    <ListItem
+                        primaryText="Stock4" />
+                </List>
+            </Drawer>
+            <Grid fluid>
+                <Row style={styles.rightContent}>
+                    Debug text
                 </Row>
             </Grid>
         </div >
@@ -87,6 +92,9 @@ export const Debug = () => {
 }
 
 const styles = {
+    userCard: {
+        position: 'absolute'
+    },
     userCardText: {
         paddingTop: '1px'
     },
@@ -97,8 +105,19 @@ const styles = {
     wrapText: {
         wordWrap: 'break-word'
     },
+    leftNavContainer: {
+        top: '64px',
+        overflow: 'hidden'
+    },
     leftNav: {
-        wordWrap: 'break-word'
+    },
+    rightContent: {
+        paddingLeft: '256px'
+    },
+    stocksList: {
+        marginTop: '235px',
+        height: '800px',
+        overflowY: 'auto'
     }
 }
 
