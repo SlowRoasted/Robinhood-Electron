@@ -7,7 +7,8 @@ Work In Progress (obviously...)
 
 ## Planned Features:
  - Login to Robinhood (done)
- - View Simple Portfolio List  
+ - View Simple Portfolio List (70%)
+    - Missing pricing info atm
  - Simple Trading  
  - Graphical Portfolio UI with Charts
  - Complex Trading with Customizable Orders
