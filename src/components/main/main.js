@@ -61,7 +61,7 @@ class Main extends Component {
             <div >
                 <AppBar
                     title="Robinhood-Electron"
-                    showMenuIconButton={false}
+                    iconElementLeft={<img style={styles.icon} src='img/doge.png'/>}
                 />
                 <Drawer containerStyle={styles.leftNavContainer}
                     style={styles.leftNav}>
@@ -140,6 +140,11 @@ const styles = {
         overflowY: 'auto',
         padding: '0px',
         height: 'calc(100% - 235px)'
+    },
+    icon: {
+        width: 32,
+        marginLeft: 16,
+        marginRight: 16
     }
 }
 

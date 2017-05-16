@@ -20,7 +20,7 @@ export const Debug = () => {
         <div >
             <AppBar
                 title="Robinhood-Electron"
-                showMenuIconButton={false}
+                iconElementLeft={<img style={styles.icon} src='img/doge.png' />}
             />
             <Drawer containerStyle={styles.leftNavContainer}>
                 <Card containerStyle={styles.userCard}>
@@ -117,7 +117,12 @@ const styles = {
         overflowY: 'auto',
         padding: '0px',
         height: 'calc(100% - 235px)'
-    }
+    },
+    icon: {
+        width: 32,
+        marginLeft: 16,
+        marginRight: 16
+    },
 }
 
 export default connect()(Debug)
