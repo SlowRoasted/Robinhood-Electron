@@ -20,7 +20,6 @@ class Main extends Component {
         const { getPositions, getPositionInstruments, getAccountAndPortfolio } = this.props
         // This will update equity and cash numbers
         const updateAccount = () => {
-            console.log('here')
             getAccountAndPortfolio(() => {
                 console.log('updating account')
                 this.timer = setTimeout(updateAccount, 5000);
@@ -59,7 +58,6 @@ class Main extends Component {
         }
         cash = parseFloat(cash).toFixed(2).toLocaleString()
         return (
-
             <div >
                 <AppBar
                     title="Robinhood-Electron"
@@ -88,7 +86,8 @@ class Main extends Component {
                             <ListItem
                                 key={elem.symbol}
                                 primaryText={elem.symbol}
-                                secondaryText={positions[index].quantity} />
+                                secondaryText={
+                                    parseInt(positions[index].quantity).toLocaleString()} />
                         )}
                     </List>
                 </Drawer>
