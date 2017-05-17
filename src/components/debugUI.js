@@ -142,7 +142,7 @@ const styles = {
         marginTop: '219px',
         overflowY: 'auto',
         padding: '0px',
-        height: 'calc(100% - 235px)'
+        height: 'calc(100% - 219px)'
     },
     icon: {
         width: 32,

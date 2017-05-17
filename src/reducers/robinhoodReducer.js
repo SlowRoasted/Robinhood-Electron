@@ -6,16 +6,20 @@ const RobinhoodReducer = (state = {
     credentials: {},
     debug: '',
     // Quantity and avg price for all currently held stocks
+    // positionInstruments, portfolioPrices all have the same length as positions
+    // and its contents have the same repective ordering 
     positions: [],
     // Ticker and price url for all currently held stocks
     positionInstruments: [],
     // User info including name, username, email, etc
     user: {},
     account: {},
-    // Overall portfolio info
+    // Overall portfolio data
     portfolio: {},
     // Should be an authenticated Robinhood client shared by the app
-    client: {}
+    client: {},
+    // Pricing data of current portfolio
+    portfolioPrices: []
 }, action) => {
     switch (action.type) {
         case ActionTypes.LOGIN:

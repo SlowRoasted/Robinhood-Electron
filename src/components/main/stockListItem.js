@@ -15,11 +15,10 @@ export const StockListItem = ({ symbol, price, shares, previousClose }) => {
     const priceUpColor = '#21ce99'
     const priceDownColor = '#f45531'
     const priceFlatColor = '#b1bfc4'
-    let percentFloat = parseFloat(percent)
-    if (percentFloat > 0) {
+    if (percent > 0) {
         textColor = priceUpColor
     }
-    else if (percentFloat < 0) {
+    else if (percent < 0) {
         textColor = priceDownColor
     }
     else {
