@@ -63,7 +63,7 @@ class Main extends Component {
     }
     render() {
         const { debug, positions, user, account, portfolio,
-            positionInstruments } = this.props
+            positionInstruments, portfolioPrices } = this.props
         // Sets the correct string formats for equity and cash
         // TODO In extended hours equity value is wrong
         let equity = portfolio.equity ? portfolio.equity : 0
@@ -101,15 +101,19 @@ class Main extends Component {
                         <Divider />
                     </Card>
                     <List style={styles.stocksList}>
+                        {/*Price here is chosen as the last extended hour trading
+                         price if it exits, else the bid price*/}
                         {positionInstruments.map((elem, index) =>
                             <StockListItem
                                 key={elem.symbol}
                                 symbol={elem.symbol}
                                 shares={
-                                    parseInt(positions[index].quantity).toLocaleString()}
-                                price={0}
-                                value={0}
-                                percent={111} />
+                                    parseInt(positions[index].quantity)}
+                                price={portfolioPrices ? (
+                                    portfolioPrices[index].last_extended_hours_trade_price ?
+                                        portfolioPrices[index].last_extended_hours_trade_price :
+                                        portfolioPrices[index].bid_price) : 0}
+                                previousClose={portfolioPrices ? portfolioPrices[index].previous_close : 0} />
                         )}
                     </List>
                 </Drawer>
@@ -130,7 +134,8 @@ const propTypes = {
     account: PropTypes.object.isRequired,
     portfolio: PropTypes.object.isRequired,
     positionInstruments: PropTypes.array.isRequired,
-    getPortfolioPrices: PropTypes.func.isRequired
+    getPortfolioPrices: PropTypes.func.isRequired,
+    portfolioPrices: PropTypes.object.isRequired
 }
 
 const styles = {
@@ -159,10 +164,10 @@ const styles = {
         paddingLeft: '256px'
     },
     stocksList: {
-        marginTop: '235px',
+        marginTop: '219px',
         overflowY: 'auto',
         padding: '0px',
-        height: 'calc(100% - 235px)'
+        height: 'calc(100% - 219px)'
     },
     icon: {
         width: 32,
@@ -179,7 +184,8 @@ export default connect(
             user: state.robinhood.user,
             account: state.robinhood.account,
             portfolio: state.robinhood.portfolio,
-            positionInstruments: state.robinhood.positionInstruments
+            positionInstruments: state.robinhood.positionInstruments,
+            portfolioPrices: state.robinhood.portfolioPrices
         }
     },
     (dispatch) => {

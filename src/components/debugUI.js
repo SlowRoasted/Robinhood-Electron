@@ -13,6 +13,7 @@ import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import { StockListItem } from './main/stockListItem'
+import TextField from 'material-ui/TextField'
 
 
 // Container for all pages, handles page navigation
@@ -45,26 +46,62 @@ export const Debug = () => {
                         symbol='BRK.B'
                         price={123}
                         shares={12}
-                        value={233333}
-                        percent={1.22} />
+                        previousClose={122} />
                     <StockListItem
                         symbol='BRK.A'
                         price={233}
                         shares={42}
-                        value={2333}
-                        percent={-1.23} />
+                        previousClose={122} />
                     <StockListItem
                         symbol='SMHHHH'
                         price={233}
                         shares={42}
-                        value={2333}
-                        percent={0} />
+                        previousClose={333} />
                     <StockListItem
                         symbol='MEHHHH'
                         price={111}
                         shares={666}
-                        value={2333}
-                        percent={-999.99} />
+                        previousClose={111} />
+                    <StockListItem
+                        symbol='BRK.B'
+                        price={123}
+                        shares={12}
+                        previousClose={122} />
+                    <StockListItem
+                        symbol='BRK.A'
+                        price={233}
+                        shares={42}
+                        previousClose={122} />
+                    <StockListItem
+                        symbol='SMHHHH'
+                        price={233}
+                        shares={42}
+                        previousClose={333} />
+                    <StockListItem
+                        symbol='MEHHHH'
+                        price={111}
+                        shares={666}
+                        previousClose={111} />
+                    <StockListItem
+                        symbol='BRK.B'
+                        price={123}
+                        shares={12}
+                        previousClose={122} />
+                    <StockListItem
+                        symbol='BRK.A'
+                        price={233}
+                        shares={42}
+                        previousClose={122} />
+                    <StockListItem
+                        symbol='SMHHHH'
+                        price={233}
+                        shares={42}
+                        previousClose={333} />
+                    <StockListItem
+                        symbol='MEHHHH'
+                        price={111}
+                        shares={666}
+                        previousClose={111} />
                 </List>
             </Drawer>
             <Grid fluid>
@@ -84,7 +121,7 @@ const styles = {
         paddingBottom: '0px'
     },
     userCardText: {
-        paddingTop: '1px'
+        paddingTop: '0px'
     },
     grid: {
         paddingLeft: '0.5rem',
@@ -102,7 +139,7 @@ const styles = {
         paddingLeft: '256px'
     },
     stocksList: {
-        marginTop: '235px',
+        marginTop: '219px',
         overflowY: 'auto',
         padding: '0px',
         height: 'calc(100% - 235px)'

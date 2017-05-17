@@ -156,8 +156,9 @@ export const getPortfolioPrices = (callback) => {
         }
         else {
             getQuotes(symbols).then(r => {
+                console.log('quotes')
                 console.log(r)
-                dispatch(setPortfolioPrices(r))
+                dispatch(setPortfolioPrices(r.results))
                 if (callback) {
                     callback()
                 }

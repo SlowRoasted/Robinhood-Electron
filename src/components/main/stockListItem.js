@@ -6,7 +6,10 @@ import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
 
 // A list item showing stock symbol, price, up/down percentage
-export const StockListItem = ({ symbol, price, shares, value, percent }) => {
+export const StockListItem = ({ symbol, price, shares, previousClose }) => {
+    // Calculating up/down percent change in price from current price and 
+    // previous close
+    let percent = ((price - previousClose)/previousClose*100).toFixed(2)
     // Setting color theme based on stock going up or down
     let textColor = ''
     const priceUpColor = '#21ce99'
@@ -39,6 +42,8 @@ export const StockListItem = ({ symbol, price, shares, value, percent }) => {
         borderRadius: '4px',
         textAlign: 'center'
     }
+    // Calculate the total value of the stock
+    let value = (parseFloat(shares) * parseFloat(price)).toFixed(2).toLocaleString()
     return (
         <div >
             <table style={styles.tableStyle}>
@@ -47,7 +52,7 @@ export const StockListItem = ({ symbol, price, shares, value, percent }) => {
                         <td>
                             <b> {symbol} </b>
                             <br />
-                            <small>{shares} {sharesString}</small>
+                            <small>{shares.toLocaleString()} {sharesString}</small>
                         </td>
                         <td style={styles.percentCell}>
                             <div style={percentDivStyle}>
@@ -57,7 +62,7 @@ export const StockListItem = ({ symbol, price, shares, value, percent }) => {
                     </tr>
                     <tr>
                         <td>
-                            <b>${price} </b>
+                            <b>${price.toLocaleString()} </b>
                         </td>
                         <td style={styles.valueCell}>
                             ${value}
@@ -73,10 +78,9 @@ export const StockListItem = ({ symbol, price, shares, value, percent }) => {
 
 const propTypes = {
     symbol: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    shares: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    percent: PropTypes.string.isRequired
+    price: PropTypes.number.isRequired,
+    shares: PropTypes.number.isRequired,
+    previousClose: PropTypes.number.isRequired
 }
 
 const styles = {
