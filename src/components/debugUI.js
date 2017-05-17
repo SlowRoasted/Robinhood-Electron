@@ -12,6 +12,7 @@ import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
+import { StockListItem } from './main/stockListItem'
 
 
 // Container for all pages, handles page navigation
@@ -25,10 +26,11 @@ export const Debug = () => {
             <Drawer containerStyle={styles.leftNavContainer}>
                 <Card containerStyle={styles.userCard}>
                     <CardHeader
-                        title="Hi! Debug Bug"
+                        title={<b>Hi! Debug Bug</b>}
                         subtitle="Username: bbuugg"
                         actAsExpander={false}
                         showExpandableButton={false}
+                        style={styles.userCardHeader}
                     />
                     <CardText expandable={false} style={styles.userCardText}>
                         <h3>PORTFOLIO VALUE</h3>
@@ -39,46 +41,30 @@ export const Debug = () => {
                     <Divider />
                 </Card>
                 <List style={styles.stocksList}>
-                    <ListItem
-                        primaryText="Stock1" />
-                    <ListItem
-                        primaryText="Stock2" />
-                    <ListItem
-                        primaryText="Stock3" />
-                    <ListItem
-                        primaryText="Stock4" />
-                    <ListItem
-                        primaryText="Stock1" />
-                    <ListItem
-                        primaryText="Stock2" />
-                    <ListItem
-                        primaryText="Stock3" />
-                    <ListItem
-                        primaryText="Stock4" />
-                    <ListItem
-                        primaryText="Stock1" />
-                    <ListItem
-                        primaryText="Stock2" />
-                    <ListItem
-                        primaryText="Stock3" />
-                    <ListItem
-                        primaryText="Stock4" />
-                    <ListItem
-                        primaryText="Stock1" />
-                    <ListItem
-                        primaryText="Stock2" />
-                    <ListItem
-                        primaryText="Stock3" />
-                    <ListItem
-                        primaryText="Stock4" />
-                    <ListItem
-                        primaryText="Stock1" />
-                    <ListItem
-                        primaryText="Stock2" />
-                    <ListItem
-                        primaryText="Stock3" />
-                    <ListItem
-                        primaryText="Stock4" />
+                    <StockListItem
+                        symbol='BRK.B'
+                        price={123}
+                        shares={12}
+                        value={233333}
+                        percent={1.22} />
+                    <StockListItem
+                        symbol='BRK.A'
+                        price={233}
+                        shares={42}
+                        value={2333}
+                        percent={-1.23} />
+                    <StockListItem
+                        symbol='SMHHHH'
+                        price={233}
+                        shares={42}
+                        value={2333}
+                        percent={0} />
+                    <StockListItem
+                        symbol='MEHHHH'
+                        price={111}
+                        shares={666}
+                        value={2333}
+                        percent={-999.99} />
                 </List>
             </Drawer>
             <Grid fluid>
@@ -93,6 +79,9 @@ export const Debug = () => {
 const styles = {
     userCard: {
         position: 'absolute'
+    },
+    userCardHeader: {
+        paddingBottom: '0px'
     },
     userCardText: {
         paddingTop: '1px'

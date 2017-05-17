@@ -64,11 +64,13 @@ export const Login = ({ username, password, updateUsername, updatePassword,
             <TextField
                 hintText='Enter your username'
                 value={username}
+                floatingLabelText='Username'
                 onChange={updateUsername.bind(this)}
                 errorText={usernameErrorText} />
             <TextField
                 hintText='Enter your password'
                 type='password'
+                floatingLabelText='Password'
                 value={password}
                 onChange={updatePassword.bind(this)}
                 errorText={passwordErrorText}

@@ -4,7 +4,12 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { getPositions, getPositionInstruments, getAccountAndPortfolio } from './mainActions'
+import {
+    getPositions,
+    getPositionInstruments,
+    getAccountAndPortfolio,
+    getPortfolioPrices
+} from './mainActions'
 import { Grid, Row, Col } from 'react-flexbox-grid'
 import { List, ListItem } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
@@ -12,17 +17,28 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import AppBar from 'material-ui/AppBar'
 import Menu from 'material-ui/Menu'
 import Drawer from 'material-ui/Drawer'
+import StockListItem from './stockListItem'
 
 
 class Main extends Component {
     // Sets all the updater schedules when the component is mounted
     componentDidMount() {
-        const { getPositions, getPositionInstruments, getAccountAndPortfolio } = this.props
+        const { getPositions,
+            getPositionInstruments,
+            getAccountAndPortfolio,
+            getPortfolioPrices } = this.props
         // This will update equity and cash numbers
         const updateAccount = () => {
             getAccountAndPortfolio(() => {
                 console.log('updating account')
                 this.timer = setTimeout(updateAccount, 5000);
+            })
+        }
+        // Updates stock prices in the current portfolio
+        const updatePortfolioPrice = () => {
+            getPortfolioPrices(() => {
+                console.log('updating prices')
+                this.timer = setTimeout(updatePortfolioPrice, 5000);
             })
         }
         // Updates list numbers of shares held
@@ -34,9 +50,11 @@ class Main extends Component {
         }
         updatePositions.bind(this)
         updateAccount.bind(this)
+        updatePortfolioPrice.bind(this)
 
         updatePositions()
         updateAccount()
+        updatePortfolioPrice()
     }
 
     componentWillUnmount() {
@@ -47,6 +65,7 @@ class Main extends Component {
         const { debug, positions, user, account, portfolio,
             positionInstruments } = this.props
         // Sets the correct string formats for equity and cash
+        // TODO In extended hours equity value is wrong
         let equity = portfolio.equity ? portfolio.equity : 0
         equity = parseFloat(equity).toFixed(2).toLocaleString()
         let cash = 0
@@ -61,7 +80,7 @@ class Main extends Component {
             <div >
                 <AppBar
                     title="Robinhood-Electron"
-                    iconElementLeft={<img style={styles.icon} src='img/logo.png'/>}
+                    iconElementLeft={<img style={styles.icon} src='img/logo.png' />}
                 />
                 <Drawer containerStyle={styles.leftNavContainer}
                     style={styles.leftNav}>
@@ -83,11 +102,14 @@ class Main extends Component {
                     </Card>
                     <List style={styles.stocksList}>
                         {positionInstruments.map((elem, index) =>
-                            <ListItem
+                            <StockListItem
                                 key={elem.symbol}
-                                primaryText={elem.symbol}
-                                secondaryText={
-                                    parseInt(positions[index].quantity).toLocaleString()} />
+                                symbol={elem.symbol}
+                                shares={
+                                    parseInt(positions[index].quantity).toLocaleString()}
+                                price={0}
+                                value={0}
+                                percent={111} />
                         )}
                     </List>
                 </Drawer>
@@ -107,7 +129,8 @@ const propTypes = {
     user: PropTypes.object.isRequired,
     account: PropTypes.object.isRequired,
     portfolio: PropTypes.object.isRequired,
-    positionInstruments: PropTypes.array.isRequired
+    positionInstruments: PropTypes.array.isRequired,
+    getPortfolioPrices: PropTypes.func.isRequired
 }
 
 const styles = {
@@ -163,7 +186,8 @@ export default connect(
         return {
             getPositions: (callback) => dispatch(getPositions(callback)),
             getPositionInstruments: () => dispatch(getPositionInstruments()),
-            getAccountAndPortfolio: (callback) => dispatch(getAccountAndPortfolio(callback))
+            getAccountAndPortfolio: (callback) => dispatch(getAccountAndPortfolio(callback)),
+            getPortfolioPrices: (callback) => dispatch(getPortfolioPrices(callback))
         }
     }
 )(Main)

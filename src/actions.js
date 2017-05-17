@@ -13,7 +13,8 @@ export const ActionTypes = {
     SET_ACCOUNT: 'SET_ACCOUNT',
     SET_PORTFOLIO: 'SET_PORTFOLIO',
     SET_POSITION_INSTRUMENTS: 'SET_POSITION_INSTRUMENTS',
-    SET_ROBINHOOD_CLIENT: 'SET_ROBINHOOD_CLIENT'
+    SET_ROBINHOOD_CLIENT: 'SET_ROBINHOOD_CLIENT',
+    SET_PORTFOLIO_PRICES: 'SET_PORTFOLIO_PRICES'
 }
 
 // Setting debug string in main reducer
@@ -43,5 +44,12 @@ const resource = (method, url) => {
 
 // Just a renamed wrapper for a get call to get instrument object
 export const getInstrument = (url) => {
-    return resource('GET', url).then(r => r).catch(r => r)
+    return resource('GET', url)
+        .then(r => r).catch(r => r)
+}
+
+// Get quotes of a list of stock symbols
+export const getQuotes = (symbols) => {
+    return resource('GET', `https://api.robinhood.com/quotes/?symbols=${symbols.toString()}`)
+        .then(r => r).catch(r => r)
 }

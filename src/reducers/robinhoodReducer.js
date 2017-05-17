@@ -64,6 +64,11 @@ const RobinhoodReducer = (state = {
                 ...state,
                 client: action.client
             }
+        case ActionTypes.SET_PORTFOLIO_PRICES:
+            return {
+                ...state,
+                portfolioPrices: action.portfolioPrices
+            }
         default:
             return state
     }

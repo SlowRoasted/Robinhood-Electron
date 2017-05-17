@@ -1,5 +1,6 @@
-import { ActionTypes, setDebugString, getInstrument } from '../../actions'
+import { ActionTypes, setDebugString, getInstrument, getQuotes } from '../../actions'
 import { Locations } from '../app'
+import { StockListItem } from './stockListItem'
 var async = require("async")
 
 const setPositions = (positions) => {
@@ -15,6 +16,7 @@ const setAccount = (account) => {
         account: account
     }
 }
+
 const setPortfolio = (portfolio) => {
     return {
         type: ActionTypes.SET_PORTFOLIO,
@@ -22,6 +24,12 @@ const setPortfolio = (portfolio) => {
     }
 }
 
+const setPortfolioPrices = (portfolioPrices) => {
+    return {
+        type: ActionTypes.SET_PORTFOLIO_PRICES,
+        portfolioPrices: portfolioPrices
+    }
+}
 // This is an array of instruments objects for each element in the positions array
 const setPositionInstruments = (positionInstruments) => {
     return {
@@ -53,13 +61,16 @@ export const getPositions = (callback) => {
                 dispatch(setPositions(results))
                 dispatch(getPositionInstruments())
             }
-            callback()
+            if (callback) {
+                callback()
+            }
         })
 
     }
 }
 
 // For each entry in positions, make a get call to the instrument url
+// Should return stock symbol and other data on the stock
 export const getPositionInstruments = () => {
     return (dispatch, getState) => {
         let positions = getState().robinhood.positions
@@ -128,5 +139,29 @@ export const getAccountAndPortfolio = (callback) => {
                 })
             }
         })
+    }
+}
+
+// Update realtime prices of the list of stocks
+export const getPortfolioPrices = (callback) => {
+    return (dispatch, getState) => {
+        let positionInstruments = getState().robinhood.positionInstruments
+        let symbols = positionInstruments.map((instrument) => {
+            return instrument.symbol
+        })
+        if (symbols.length == 0) {
+            if (callback) {
+                callback()
+            }
+        }
+        else {
+            getQuotes(symbols).then(r => {
+                console.log(r)
+                dispatch(setPortfolioPrices(r))
+                if (callback) {
+                    callback()
+                }
+            })
+        }
     }
 }
