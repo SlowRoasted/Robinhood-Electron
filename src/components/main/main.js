@@ -67,7 +67,7 @@ class Main extends Component {
         // Sets the correct string formats for equity and cash
         // TODO In extended hours equity value is wrong
         let equity = portfolio.equity ? portfolio.equity : 0
-        equity = parseFloat(equity).toFixed(2).toLocaleString()
+        equity = parseFloat(parseFloat(equity).toFixed(2)).toLocaleString()
         let cash = 0
         if (account.margin_balances) {
             cash = account.margin_balances.unallocated_margin_cash
@@ -75,7 +75,8 @@ class Main extends Component {
         else if (account.cash) {
             cash = acocunt.cash
         }
-        cash = parseFloat(cash).toFixed(2).toLocaleString()
+        // toFixed returns string, need to parse back to float to get locale string
+        cash = parseFloat(parseFloat(cash).toFixed(2)).toLocaleString()
         return (
             <div >
                 <AppBar
@@ -109,11 +110,12 @@ class Main extends Component {
                                 symbol={elem.symbol}
                                 shares={
                                     parseInt(positions[index].quantity)}
-                                price={portfolioPrices ? (
+                                price={(portfolioPrices && portfolioPrices[index]) ? (
                                     portfolioPrices[index].last_extended_hours_trade_price ?
                                         portfolioPrices[index].last_extended_hours_trade_price :
                                         portfolioPrices[index].bid_price) : 0}
-                                previousClose={portfolioPrices ? portfolioPrices[index].previous_close : 0} />
+                                previousClose={(portfolioPrices && portfolioPrices[index])
+                                    ? portfolioPrices[index].previous_close : 0} />
                         )}
                     </List>
                 </Drawer>

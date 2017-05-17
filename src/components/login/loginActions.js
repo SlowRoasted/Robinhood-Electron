@@ -23,10 +23,10 @@ const setUser = (user) => {
     }
 }
 
-const errorLogin = () => {
+const errorLogin = (text) => {
     return {
         type: ActionTypes.UPDATE_PASSWORD_ERROR,
-        error: "Error during login, wrong username/password"
+        error: text ? text : "Error during login, wrong username/password"
     }
 }
 
@@ -55,23 +55,19 @@ export const testLogin = (username, password) => {
             Robinhood.user((err, response, body) => {
                 if (err) {
                     console.error(err);
+                    dispatch(errorLogin("Error connecting to the server"))
                 } else if (response.statusCode >= 400) {
                     console.log("Error logging in")
                     dispatch(errorLogin())
-                    dispatch(loginToggleLoading())
-
                 }
                 else {
                     dispatch(setCredentials(credentials))
                     dispatch(setRobinhoodClient(Robinhood))
-                    // dispatch(getAccountAndPortfolio())
                     dispatch(setUser(body))
                     dispatch(setDebugString(body))
-                    // Login success, getting accounts data
-                    dispatch(loginToggleLoading())
-                    // When login success, save credentials in robinhood reducer
                     dispatch(goToMain())
                 }
+                dispatch(loginToggleLoading())
             })
         });
     }

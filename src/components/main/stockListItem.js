@@ -9,7 +9,7 @@ import Divider from 'material-ui/Divider'
 export const StockListItem = ({ symbol, price, shares, previousClose }) => {
     // Calculating up/down percent change in price from current price and 
     // previous close
-    let percent = ((price - previousClose)/previousClose*100).toFixed(2)
+    let percent = parseFloat(((price - previousClose) / previousClose * 100).toFixed(2))
     // Setting color theme based on stock going up or down
     let textColor = ''
     const priceUpColor = '#21ce99'
@@ -42,7 +42,7 @@ export const StockListItem = ({ symbol, price, shares, previousClose }) => {
         textAlign: 'center'
     }
     // Calculate the total value of the stock
-    let value = (parseFloat(shares) * parseFloat(price)).toFixed(2).toLocaleString()
+    let value = parseFloat((shares * price).toFixed(2)).toLocaleString()
     return (
         <div >
             <table style={styles.tableStyle}>
@@ -61,7 +61,7 @@ export const StockListItem = ({ symbol, price, shares, previousClose }) => {
                     </tr>
                     <tr>
                         <td>
-                            <b>${price.toLocaleString()} </b>
+                            <b>${parseFloat(parseFloat(price).toFixed(2)).toLocaleString()} </b>
                         </td>
                         <td style={styles.valueCell}>
                             ${value}
