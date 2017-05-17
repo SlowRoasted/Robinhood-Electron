@@ -14,4 +14,9 @@ Work In Progress (obviously...)
  - Graphical Portfolio UI with Charts
  - Complex Trading with Customizable Orders
   
-  
+## Screenshots 
+#### Appreciate the doge I stole from the Internet, please don't copyright it :(
+ - Current login page
+ ![Login Page](https://i0.wp.com/pinghao.net/wp-content/uploads/2017/05/Screen-Shot-2017-05-17-at-7.39.30-PM.png?w=1320)
+ - Current Main page, with only the left nav implemented
+ ![Main Page](https://i1.wp.com/pinghao.net/wp-content/uploads/2017/05/Screen-Shot-2017-05-17-at-7.46.07-PM.png?w=1320)
