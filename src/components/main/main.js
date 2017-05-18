@@ -25,27 +25,27 @@ class Main extends Component {
     componentDidMount() {
         const { getPositions,
             getPositionInstruments,
-            getAccountAndPortfolio,
+            getAccount,
             getPortfolioPrices } = this.props
         // This will update equity and cash numbers
         const updateAccount = () => {
-            getAccountAndPortfolio(() => {
+            getAccount(() => {
                 console.log('updating account')
-                this.timer = setTimeout(updateAccount, 5000);
+                this.accountTimer = setTimeout(updateAccount, 5000)
             })
         }
         // Updates stock prices in the current portfolio
         const updatePortfolioPrice = () => {
             getPortfolioPrices(() => {
                 console.log('updating prices')
-                this.timer = setTimeout(updatePortfolioPrice, 5000);
+                this.pricesTimer = setTimeout(updatePortfolioPrice, 5000)
             })
         }
         // Updates list numbers of shares held
         const updatePositions = () => {
             getPositions(() => {
                 console.log('updating positions')
-                this.timer = setTimeout(updatePositions, 20000);
+                this.positionsTimer = setTimeout(updatePositions, 20000)
             })
         }
         updatePositions.bind(this)
@@ -58,24 +58,51 @@ class Main extends Component {
     }
 
     componentWillUnmount() {
-        console.log(this.timer)
-        clearTimeout(this.timer);
+        console.log('Clearning update timers')
+        clearTimeout(this.accountTimer)
+        clearTimeout(this.pricesTimer)
+        clearTimeout(this.positionsTimer)
     }
     render() {
-        const { debug, positions, user, account, portfolio,
+        const { debug, positions, user, account,
             positionInstruments, portfolioPrices } = this.props
-        // Sets the correct string formats for equity and cash
-        // TODO In extended hours equity value is wrong
-        let equity = portfolio.equity ? portfolio.equity : 0
-        equity = parseFloat(parseFloat(equity).toFixed(2)).toLocaleString()
+
+        // Choosing between extended hour prices vs regular hourss price.
+        let prices = portfolioPrices.map((p) => {
+            return p.last_extended_hours_trade_price ?
+                p.last_extended_hours_trade_price : p.last_trade_price
+        })
+        let shares = positions.map((p) => {
+            return parseInt(p.quantity)
+        })
+        if (shares.length > 0 && prices.length > 0 && (prices.length != shares.length)) {
+            console.error('prices and shares arrays length mismatch!')
+        }
+        // let equity = portfolio.extended_hours_equity ?
+        //     portfolio.extended_hours_equity : 0
+        // 
+
         let cash = 0
+        let marginLimit = 0.0
         if (account.margin_balances) {
             cash = account.margin_balances.unallocated_margin_cash
+            marginLimit = account.margin_balances.margin_limit
         }
         else if (account.cash) {
             cash = acocunt.cash
         }
+
+        // Multiply shares and prices then sum, so portfolio object would be
+        // no longer needed
+        let equity = shares.map((s, i) => {
+            return s * prices[i]
+        }).reduce((a, b) => {
+            return a + b;
+        }, 0) + parseFloat(cash) - marginLimit
+        // Sets the correct string formats for equity 
         // toFixed returns string, need to parse back to float to get locale string
+        equity = parseFloat(parseFloat(equity).toFixed(2)).toLocaleString()
+        // Sets the correct string formats for cash
         cash = parseFloat(parseFloat(cash).toFixed(2)).toLocaleString()
         return (
             <div >
@@ -108,21 +135,15 @@ class Main extends Component {
                             <StockListItem
                                 key={elem.symbol}
                                 symbol={elem.symbol}
-                                shares={
-                                    parseInt(positions[index].quantity)}
-                                price={(portfolioPrices && portfolioPrices[index]) ? (
-                                    portfolioPrices[index].last_extended_hours_trade_price ?
-                                        portfolioPrices[index].last_extended_hours_trade_price :
-                                        portfolioPrices[index].bid_price) : 0}
-                                previousClose={(portfolioPrices && portfolioPrices[index])
+                                shares={shares[index] ? shares[index] : 0}
+                                price={prices[index] ? prices[index] : 0}
+                                previousClose={portfolioPrices[index]
                                     ? portfolioPrices[index].previous_close : 0} />
                         )}
                     </List>
                 </Drawer>
-                <Grid fluid>
-                    <Row style={styles.rightContent}>
-                        {JSON.stringify(debug == '' ? 'Empty Debug' : debug)}
-                    </Row>
+                <Grid fluid style={styles.rightContent}>
+                    {JSON.stringify(debug == '' ? 'Empty Debug' : debug)}
                 </Grid>
             </div >
         )
@@ -134,10 +155,10 @@ const propTypes = {
     positions: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
     account: PropTypes.object.isRequired,
-    portfolio: PropTypes.object.isRequired,
     positionInstruments: PropTypes.array.isRequired,
     getPortfolioPrices: PropTypes.func.isRequired,
-    portfolioPrices: PropTypes.object.isRequired
+    portfolioPrices: PropTypes.object.isRequired,
+    getAccount: PropTypes.func.isRequired
 }
 
 const styles = {
@@ -154,16 +175,15 @@ const styles = {
         paddingLeft: '0.5rem',
         paddingRight: '0.5rem'
     },
-    wrapText: {
-        wordWrap: 'break-word'
-    },
     leftNavContainer: {
         top: '64px',
         overflow: 'hidden',
         height: 'calc(100% - 64px)'
     },
     rightContent: {
-        paddingLeft: '256px'
+        paddingLeft: '264px',
+        paddingRight: '8px',
+        wordWrap: 'break-word'
     },
     stocksList: {
         marginTop: '219px',
@@ -185,7 +205,6 @@ export default connect(
             positions: state.robinhood.positions,
             user: state.robinhood.user,
             account: state.robinhood.account,
-            portfolio: state.robinhood.portfolio,
             positionInstruments: state.robinhood.positionInstruments,
             portfolioPrices: state.robinhood.portfolioPrices
         }
@@ -194,7 +213,7 @@ export default connect(
         return {
             getPositions: (callback) => dispatch(getPositions(callback)),
             getPositionInstruments: () => dispatch(getPositionInstruments()),
-            getAccountAndPortfolio: (callback) => dispatch(getAccountAndPortfolio(callback)),
+            getAccount: (callback) => dispatch(getAccountAndPortfolio(false, callback)),
             getPortfolioPrices: (callback) => dispatch(getPortfolioPrices(callback))
         }
     }

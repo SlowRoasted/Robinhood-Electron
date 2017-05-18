@@ -32,9 +32,10 @@ export const StockListItem = ({ symbol, price, shares, previousClose }) => {
         sharesString = 'SHARE'
     }
 
+    // Black text color rgb(4, 13, 20)
     let percentDivStyle = {
         backgroundColor: textColor,
-        color: 'rgb(4, 13, 20)',
+        color: 'rgb(255, 255, 255)',
         width: '72px',
         height: '32px',
         lineHeight: '32px',

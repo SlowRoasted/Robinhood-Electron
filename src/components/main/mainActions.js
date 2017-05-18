@@ -108,7 +108,8 @@ const getPaginatedResults = (Robinhood, firstBody, callback) => {
 }
 
 // Updating account and portfolio info including current equity and cash
-export const getAccountAndPortfolio = (callback) => {
+// Updating portfolio is optional
+export const getAccountAndPortfolio = (doUpdatePortfolio, callback) => {
     return (dispatch, getState) => {
         let Robinhood = getState().robinhood.client
         Robinhood.accounts((err, response, body) => {
@@ -121,28 +122,36 @@ export const getAccountAndPortfolio = (callback) => {
                 dispatch(setAccount(body.results[0]))
                 console.log('account')
                 console.log(body)
-                // Getting portfolio using the url returned in the account body
-                Robinhood.url(body.results[0].portfolio, (err, response, body) => {
-                    if (err) {
-                        console.error(err);
-                    } else if (response.statusCode >= 400) {
-                        console.log("Error getting portfolio")
-                    }
-                    else {
-                        console.log('portfolio')
-                        console.log(body)
-                        dispatch(setPortfolio(body))
-                    }
+                if (doUpdatePortfolio) {
+                    // Getting portfolio using the url returned in the account body
+                    Robinhood.url(body.results[0].portfolio, (err, response, body) => {
+                        if (err) {
+                            console.error(err);
+                        } else if (response.statusCode >= 400) {
+                            console.log("Error getting portfolio")
+                        }
+                        else {
+                            console.log('portfolio')
+                            console.log(body)
+                            dispatch(setPortfolio(body))
+                        }
+                        if (callback) {
+                            callback()
+                        }
+                    })
+                }
+                else {
                     if (callback) {
                         callback()
                     }
-                })
+                }
             }
         })
     }
 }
 
 // Update realtime prices of the list of stocks
+// Depends on positionInstruments being updated
 export const getPortfolioPrices = (callback) => {
     return (dispatch, getState) => {
         let positionInstruments = getState().robinhood.positionInstruments
