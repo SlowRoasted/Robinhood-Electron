@@ -105,11 +105,13 @@ class Main extends Component {
         // Sets the correct string formats for cash
         cash = parseFloat(parseFloat(cash).toFixed(2)).toLocaleString()
         return (
-            <div >
+            <div>
                 <AppBar
                     title="Robinhood-Electron"
                     iconElementLeft={<img style={styles.icon} src='img/logo.png' />}
+                    style={styles.appbar}
                 />
+                {/*Left Nav*/}
                 <Drawer containerStyle={styles.leftNavContainer}
                     style={styles.leftNav}>
                     <Card containerStyle={styles.userCard}>
@@ -142,9 +144,6 @@ class Main extends Component {
                         )}
                     </List>
                 </Drawer>
-                <Grid fluid style={styles.rightContent}>
-                    {JSON.stringify(debug == '' ? 'Empty Debug' : debug)}
-                </Grid>
             </div >
         )
     }
@@ -162,6 +161,9 @@ const propTypes = {
 }
 
 const styles = {
+    appbar: {
+        position: 'fixed'
+    },
     userCard: {
         position: 'absolute'
     },
@@ -179,11 +181,6 @@ const styles = {
         top: '64px',
         overflow: 'hidden',
         height: 'calc(100% - 64px)'
-    },
-    rightContent: {
-        paddingLeft: '264px',
-        paddingRight: '8px',
-        wordWrap: 'break-word'
     },
     stocksList: {
         marginTop: '219px',

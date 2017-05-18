@@ -14,15 +14,16 @@ import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import { StockListItem } from './main/stockListItem'
 import TextField from 'material-ui/TextField'
-
+import DebugDetailedPanel from './debugDetailedPanel'
 
 // Container for all pages, handles page navigation
 export const Debug = () => {
     return (
-        <div >
+        <div>
             <AppBar
                 title="Robinhood-Electron"
                 iconElementLeft={<img style={styles.icon} src='img/logo.png' />}
+                style={styles.appbar}
             />
             <Drawer containerStyle={styles.leftNavContainer}>
                 <Card containerStyle={styles.userCard}>
@@ -104,16 +105,15 @@ export const Debug = () => {
                         previousClose={111} />
                 </List>
             </Drawer>
-            <Grid fluid>
-                <Row style={styles.rightContent}>
-                    Debug text
-                </Row>
-            </Grid>
+            <DebugDetailedPanel />
         </div >
     )
 }
 
 const styles = {
+    appbar: {
+        position: 'fixed'
+    },
     userCard: {
         position: 'absolute'
     },
@@ -127,16 +127,10 @@ const styles = {
         paddingLeft: '0.5rem',
         paddingRight: '0.5rem'
     },
-    wrapText: {
-        wordWrap: 'break-word'
-    },
     leftNavContainer: {
         top: '64px',
         overflow: 'hidden',
         height: 'calc(100% - 64px)'
-    },
-    rightContent: {
-        paddingLeft: '256px'
     },
     stocksList: {
         marginTop: '219px',
@@ -149,6 +143,9 @@ const styles = {
         marginLeft: 16,
         marginRight: 16
     },
+    rightContent: {
+        marginTop: '64px'
+    }
 }
 
 export default connect()(Debug)

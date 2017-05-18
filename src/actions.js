@@ -7,7 +7,8 @@ export const ActionTypes = {
     NAVIGATE: 'NAVIGATE',
     DEBUG: 'DEBUG',
     CLEAR_LOGIN_INPUTS: 'CLEAR_LOGIN_INPUTS',
-    LOGIN_TOGGLE_LOADING: 'LOGIN_TOGGLE_LOADING',
+    LOGIN_START_LOADING: 'LOGIN_START_LOADING',
+    LOGIN_END_LOADING: 'LOGIN_END_LOADING',
     SET_POSITIONS: 'SET_POSITIONS',
     SET_USER: 'SET_USER',
     SET_ACCOUNT: 'SET_ACCOUNT',
@@ -45,7 +46,7 @@ const resource = (method, url) => {
 // Just a renamed wrapper for a get call to get instrument object
 export const getInstrument = (url) => {
     return resource('GET', url)
-        .then(r => r).catch(r => r)
+        .then(r => r).catch(r => { })
 }
 
 // Get quotes of a list of stock symbols

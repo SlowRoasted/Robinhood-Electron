@@ -41,11 +41,15 @@ const LoginReducer = (state = {
                 passwordErrorText: ''
             }
         // Shows loading animation
-        case ActionTypes.LOGIN_TOGGLE_LOADING:
-            var newLoadingState = !state.loading
+        case ActionTypes.LOGIN_START_LOADING:
             return {
                 ...state,
-                loading: newLoadingState
+                loading: true
+            }
+        case ActionTypes.LOGIN_END_LOADING:
+            return {
+                ...state,
+                loading: false
             }
         default:
             return state

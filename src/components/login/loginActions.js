@@ -30,12 +30,20 @@ const errorLogin = (text) => {
     }
 }
 
-// Toggles the loading modal in login screen
-const loginToggleLoading = () => {
+// Shows the loading modal in login screen
+const loginStartLoading = () => {
     return {
-        type: ActionTypes.LOGIN_TOGGLE_LOADING
+        type: ActionTypes.LOGIN_START_LOADING
     }
 }
+
+// Hides the loading modal in login screen
+const loginEndLoading = () => {
+    return {
+        type: ActionTypes.LOGIN_END_LOADING
+    }
+}
+
 
 const setRobinhoodClient = (client) => {
     return {
@@ -45,12 +53,21 @@ const setRobinhoodClient = (client) => {
 }
 
 export const testLogin = (username, password) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         let credentials = {
             username: username,
             password: password
         }
-        dispatch(loginToggleLoading())
+        dispatch(loginStartLoading())
+
+        // Clear loading if timed out 30s
+        setTimeout(() => {
+            console.log('loading timeout clear')
+            if (getState().login.loading) {
+                dispatch(loginEndLoading())
+                dispatch(errorLogin('Login timed out'))
+            }
+        }, 30000)
         var Robinhood = require('robinhood')(credentials, () => {
             Robinhood.user((err, response, body) => {
                 if (err) {
@@ -67,7 +84,7 @@ export const testLogin = (username, password) => {
                     dispatch(setDebugString(body))
                     dispatch(goToMain())
                 }
-                dispatch(loginToggleLoading())
+                dispatch(loginEndLoading())
             })
         });
     }

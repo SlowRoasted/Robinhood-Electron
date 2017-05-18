@@ -71,6 +71,7 @@ export const getPositions = (callback) => {
 
 // For each entry in positions, make a get call to the instrument url
 // Should return stock symbol and other data on the stock
+// TODO Optimize instruments polling, currently most of the calls are unnecessary
 export const getPositionInstruments = () => {
     return (dispatch, getState) => {
         let positions = getState().robinhood.positions
