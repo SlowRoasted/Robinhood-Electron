@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import Login from './login/login'
 import Main from './main/main'
-import Debug from './debugUI'
+import Debug from './UITesting/debugMain'
 import PropTypes from 'prop-types'
 // Container for all pages, handles page navigation
 export const App = ({ location }) => {

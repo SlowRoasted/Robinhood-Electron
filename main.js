@@ -39,8 +39,8 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1280,
         height: 800,
-        minHeight: 800,
-        minWidth: 600
+        minHeight: 600,
+        minWidth: 800
     });
 
     mainWindow.loadURL(`file://${__dirname}/dist/index.html`);

@@ -12,9 +12,9 @@ import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
-import { StockListItem } from './main/stockListItem'
+import { StockListItem } from '../main/stockListItem'
 import TextField from 'material-ui/TextField'
-import DebugDetailPanel from './debugDetailPanel'
+import DebugContent from './debugContent'
 
 // Container for all pages, handles page navigation
 export const Debug = () => {
@@ -105,7 +105,7 @@ export const Debug = () => {
                         previousClose={111} />
                 </List>
             </Drawer>
-            <DebugDetailPanel />
+            <DebugContent />
         </div >
     )
 }
