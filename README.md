@@ -18,5 +18,5 @@ Work In Progress (obviously...)
 #### Appreciate the doge I stole from the Internet, please don't copyright it :(
  - Current login page
  ![Login Page](Screenshots/Login.png)
- - Current Main page, with only the left nav implemented
+ - Current Main page design with placeholder data. Only the left nav is fully functional at the moment.
  ![Main Page](Screenshots/Main2.png)
