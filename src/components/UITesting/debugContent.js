@@ -77,56 +77,60 @@ export const DebugContent = () => {
                 </Col>
             </Row>
             <Row style={styles.row}>
-                <Col xs={7} md={8} style={styles.tradeContainer}>
+                <Col xs={6} md={7} style={styles.tradeContainer}>
                     <div>
-                        <b>Place an order </b>
-                        <RadioButtonGroup name="buyOrSell" defaultSelected="buy">
-                            <RadioButton
-                                value="buy"
-                                label="Buy"
+                        <div style={{float: 'left', paddingRight: '32px'}}>
+                            <b>Place an order </b>
+                            <RadioButtonGroup name="buyOrSell" defaultSelected="buy">
+                                <RadioButton
+                                    value="buy"
+                                    label="Buy"
+                                />
+                                <RadioButton
+                                    value="sell"
+                                    label="Sell"
+                                />
+                            </RadioButtonGroup>
+                            <br />
+                            <label> AMZN currently at $966.66 </label>
+                            <br />
+                            <TextField
+                                hintText="Number of shares"
+                                floatingLabelText="Number of shares"
+                                type="number" step="1"
+                                pattern="\d+"
+                                floatingLabelFixed={true}
+                                min={0}
                             />
-                            <RadioButton
-                                value="sell"
-                                label="Sell"
-                            />
-                        </RadioButtonGroup>
-                        <br />
-                        <label> AMZN currently at $966.66 </label>
-                        <br />
-                        <TextField
-                            hintText="Number of shares"
-                            floatingLabelText="Number of shares"
-                            type="number" step="1"
-                            pattern="\d+"
-                            floatingLabelFixed={true}
-                            min={0}
-                        />
-                        <br />
-                        <SelectField
-                            floatingLabelText="Order Type"
-                            value={2}
-                            floatingLabelFixed={true}>
-                            <MenuItem value={1} primaryText="Market" />
-                            <MenuItem value={2} primaryText="Limit" />
-                        </SelectField>
-                        <br />
-                        <TextField
-                            hintText="Limit Price"
-                            floatingLabelText="Limit Price"
-                            type="number"
-                            step="0.01"
-                            floatingLabelFixed={true}
-                            pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
-                            min={0} />
-                        <br />
-                        <label> Buying 10 shares of AMZN for <br />
-                            $1,234.01 in total</label>
-                        <br />
-                        <br />
-                        <RaisedButton label="Place Order" primary={true} />
+                            <br />
+                            <SelectField
+                                floatingLabelText="Order Type"
+                                value={2}
+                                floatingLabelFixed={true}>
+                                <MenuItem value={1} primaryText="Market" />
+                                <MenuItem value={2} primaryText="Limit" />
+                            </SelectField>
+                        </div>
+                        <div style={{paddingLeft: '32px'}}>
+                            <br />
+                            <TextField
+                                hintText="Limit Price"
+                                floatingLabelText="Limit Price"
+                                type="number"
+                                step="0.01"
+                                floatingLabelFixed={true}
+                                pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                                min={0} />
+                            <br />
+                            <label> Buying 10 shares of AMZN for <br />
+                                $1,234.01 in total</label>
+                            <br />
+                            <br />
+                            <RaisedButton label="Place Order" primary={true} />
+                        </div>
                     </div>
                 </Col>
-                <Col xs={5} md={4} style={styles.newsContainer}>
+                <Col xs={6} md={5} style={styles.newsContainer}>
                     <div>
                         <b> News </b>
                         <List>
