@@ -18,7 +18,7 @@ import AppBar from 'material-ui/AppBar'
 import Menu from 'material-ui/Menu'
 import Drawer from 'material-ui/Drawer'
 import StockListItem from './stockListItem'
-
+import MainContent from './mainContent'
 
 class Main extends Component {
     // Sets all the updater schedules when the component is mounted
@@ -144,6 +144,7 @@ class Main extends Component {
                         )}
                     </List>
                 </Drawer>
+                <MainContent />
             </div >
         )
     }

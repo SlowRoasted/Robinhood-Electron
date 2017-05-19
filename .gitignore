@@ -2,3 +2,5 @@ node_modules
 dist/bundle.js
 *.hot-update.js
 *.hot-update.json
+.vscode
+apiTesting.js

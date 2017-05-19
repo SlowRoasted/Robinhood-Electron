@@ -17,7 +17,7 @@ import TextField from 'material-ui/TextField'
 
 
 // Container for all pages, handles page navigation
-export const DebugDetailedPanel = () => {
+export const DebugDetailPanel = () => {
     return (
         <Grid fluid style={styles.rightContent}>
             <Row style={styles.row}>
@@ -33,7 +33,7 @@ export const DebugDetailedPanel = () => {
             <Row style={styles.row}>
                 <Col xs={7} md={8} style={styles.tradeContainer}>
                     Trade
-                        <img src='img/logo.png' style={{ width: '200px' }} />
+                        <TextField />
                 </Col>
                 <Col xs={5} md={4} style={styles.newsContainer}>
                     News
@@ -69,4 +69,4 @@ const styles = {
     },
 }
 
-export default connect()(DebugDetailedPanel)
+export default connect()(DebugDetailPanel)

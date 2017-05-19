@@ -1,5 +1,5 @@
 const AppReducer = (state = {
-  location: Locations.LOGIN
+  location: Locations.DEBUG
 }, action) => {
   switch (action.type) {
     case ActionTypes.NAVIGATE:
