@@ -19,4 +19,4 @@ Work In Progress (obviously...)
  - Current login page
  ![Login Page](Screenshots/Login.png)
  - Current Main page, with only the left nav implemented
- ![Main Page](Screenshots/Main.png)
+ ![Main Page](Screenshots/Main2.png)
