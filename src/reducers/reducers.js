@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import AppReducer from './appReducer'
+import RobinhoodReducer from './robinhoodReducer'
 import LoginReducer from './loginReducer'
 import TradeReducer from './tradeReducer'
 
