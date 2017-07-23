@@ -1,4 +1,7 @@
 /*
+ * @author Pinghao Qi
+ * 
+ * Started out using skeleton code from the author below:
  * Copyright (C) 2016. All Rights Reserved.
  *
  * @author  Arno Zhang

@@ -4,3 +4,4 @@ dist/bundle.js
 *.hot-update.json
 .vscode
 apiTesting.js
+src/credentials.js
