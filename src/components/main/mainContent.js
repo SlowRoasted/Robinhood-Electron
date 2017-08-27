@@ -13,30 +13,88 @@ import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import TextField from 'material-ui/TextField'
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import {
+    Table,
+    TableBody,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn,
+} from 'material-ui/Table';
 
+import TradePanel from './tradePanel';
 
 // Container for all pages, handles page navigation
 export const MainContent = () => {
     return (
         <Grid fluid style={styles.rightContent}>
             <Row style={styles.row}>
-                <Col xs={7} md={8} style={styles.graphContainer}>
+                <Col xs={12} md={12} style={styles.graphContainer}>
                     Graph Placeholder
-                        <img src='img/logo.png' style={{ width: '200px' }} />
-                </Col>
-                <Col xs={5} md={4} style={styles.statsContainer}>
-                    Stats
-                        <img src='img/logo.png' style={{ width: '200px' }} />
+                   <img src='img/logo.png' style={{ width: '300px' }} />
                 </Col>
             </Row>
+            <Divider/>
             <Row style={styles.row}>
-                <Col xs={7} md={8} style={styles.tradeContainer}>
-                    Trade
-                        <img src='img/logo.png' style={{ width: '200px' }} />
+                <Col xs={6} md={4} style={styles.tradeContainer}>
+                    <TradePanel />
                 </Col>
-                <Col xs={5} md={4} style={styles.newsContainer}>
-                    News
-                        <img src='img/logo.png' style={{ width: '200px' }} />
+                <Col xs={4} md={4} style={styles.statsContainer}>
+                    <div>
+                        <b>Stats</b>
+                        <Table selectable={false}>
+                            <TableBody displayRowCheckbox={false}>
+                                <TableRow>
+                                    <TableRowColumn>Open</TableRowColumn>
+                                    <TableRowColumn>123</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Close</TableRowColumn>
+                                    <TableRowColumn>233</TableRowColumn>
+                                </TableRow><TableRow>
+                                    <TableRowColumn>High</TableRowColumn>
+                                    <TableRowColumn>233</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Low</TableRowColumn>
+                                    <TableRowColumn>123</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Open</TableRowColumn>
+                                    <TableRowColumn>123</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Close</TableRowColumn>
+                                    <TableRowColumn>233</TableRowColumn>
+                                </TableRow><TableRow>
+                                    <TableRowColumn>High</TableRowColumn>
+                                    <TableRowColumn>233</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Low</TableRowColumn>
+                                    <TableRowColumn>123</TableRowColumn>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </div>
+                </Col>
+                <Col xs={2} md={4} style={styles.newsContainer}>
+                    <div>
+                        <b> News </b>
+                        <List>
+                            <ListItem primaryText="News meh meh" />
+                            <Divider />
+                            <ListItem primaryText="News meh meh" />
+                            <Divider />
+                            <ListItem primaryText="News meh meh" />
+                            <Divider />
+                            <ListItem primaryText="News meh meh" />
+                        </List>
+                    </div>
                 </Col>
             </Row>
         </Grid>

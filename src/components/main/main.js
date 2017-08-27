@@ -104,6 +104,7 @@ class Main extends Component {
         equity = parseFloat(parseFloat(equity).toFixed(2)).toLocaleString()
         // Sets the correct string formats for cash
         cash = parseFloat(parseFloat(cash).toFixed(2)).toLocaleString()
+        
         return (
             <div>
                 <AppBar
