@@ -65,7 +65,7 @@ class Main extends Component {
     }
     render() {
         const { debug, positions, user, account,
-            positionInstruments, portfolioPrices } = this.props
+            positionInstruments, portfolioPrices, selectedSymbol } = this.props
 
         // Choosing between extended hour prices vs regular hourss price.
         let prices = portfolioPrices.map((p) => {
@@ -145,7 +145,7 @@ class Main extends Component {
                         )}
                     </List>
                 </Drawer>
-                <MainContent />
+                <MainContent selectedSymbol={selectedSymbol} currentPrice={0.0}/>
             </div >
         )
     }
@@ -159,7 +159,8 @@ const propTypes = {
     positionInstruments: PropTypes.array.isRequired,
     getPortfolioPrices: PropTypes.func.isRequired,
     portfolioPrices: PropTypes.object.isRequired,
-    getAccount: PropTypes.func.isRequired
+    getAccount: PropTypes.func.isRequired,
+    selectedSymbol: PropTypes.string
 }
 
 const styles = {
@@ -205,7 +206,8 @@ export default connect(
             user: state.robinhood.user,
             account: state.robinhood.account,
             positionInstruments: state.robinhood.positionInstruments,
-            portfolioPrices: state.robinhood.portfolioPrices
+            portfolioPrices: state.robinhood.portfolioPrices,
+            selectedSymbol: state.main.selectedSymbol
         }
     },
     (dispatch) => {

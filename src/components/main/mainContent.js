@@ -29,7 +29,7 @@ import {
 import TradePanel from './tradePanel';
 
 // Container for all pages, handles page navigation
-export const MainContent = () => {
+export const MainContent = ({selectedSymbol, currentPrice}) => {
     return (
         <Grid fluid style={styles.rightContent}>
             <Row style={styles.row}>
@@ -41,7 +41,7 @@ export const MainContent = () => {
             <Divider/>
             <Row style={styles.row}>
                 <Col xs={6} md={4} style={styles.tradeContainer}>
-                    <TradePanel />
+                    <TradePanel symbol={selectedSymbol} currentPrice={currentPrice}/>
                 </Col>
                 <Col xs={4} md={4} style={styles.statsContainer}>
                     <div>

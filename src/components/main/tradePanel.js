@@ -7,7 +7,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 
-export const TradePanel = () => {
+export const TradePanel = ({symbol, currentPrice}) => {
     return (
         <div>
             <b>Place an order </b>
@@ -22,7 +22,7 @@ export const TradePanel = () => {
                 />
             </RadioButtonGroup>
             <br />
-            <label> AMZN currently at $966.66 </label>
+            <label> {symbol} currently at ${currentPrice} </label>
             <br />
             <TextField
                 hintText="Number of shares"
@@ -49,7 +49,8 @@ export const TradePanel = () => {
                     step="0.01"
                     floatingLabelFixed={true}
                     pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
-                    min={0} />
+                    min={0} 
+                    defaultValue={currentPrice}/>
                 <br />
                 <label> Buying 10 shares of AMZN for <br />
                     $1,234.01 in total</label>

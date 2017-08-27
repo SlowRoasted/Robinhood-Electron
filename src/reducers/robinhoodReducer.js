@@ -34,7 +34,7 @@ const RobinhoodReducer = (state = {
                 debug: action.text
             }
         case ActionTypes.SET_POSITIONS:
-            // Some old portfolio entries with 0 quantities returned from server
+            // Some old portfolio entries with 0 quantities returned from server (Can make the non-zero position call instead)
             let positions = action.positions ?
                 action.positions.filter((inst) => {
                     return parseFloat(inst.quantity) > 0

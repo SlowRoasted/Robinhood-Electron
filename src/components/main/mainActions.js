@@ -30,6 +30,7 @@ const setPortfolioPrices = (portfolioPrices) => {
         portfolioPrices: portfolioPrices
     }
 }
+
 // This is an array of instruments objects for each element in the positions array
 const setPositionInstruments = (positionInstruments) => {
     return {
@@ -37,6 +38,7 @@ const setPositionInstruments = (positionInstruments) => {
         positionInstruments: positionInstruments
     }
 }
+
 // Callback can be used to trigger a next update after an error
 export const getPositions = (callback) => {
     return (dispatch, getState) => {
@@ -65,7 +67,6 @@ export const getPositions = (callback) => {
                 callback()
             }
         })
-
     }
 }
 
@@ -175,4 +176,8 @@ export const getPortfolioPrices = (callback) => {
             })
         }
     }
+}
+
+export const setSelectedStock = () => {
+    
 }
