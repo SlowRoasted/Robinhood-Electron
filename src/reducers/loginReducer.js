@@ -1,12 +1,16 @@
 import { ActionTypes } from '../actions'
-// Save credentials in src/credentials.js locally for faster login
-var credentials = require('../credentials').credentials
 
+// Save credentials in src/credentials.js locally for faster login
+try {
+    var credentials = require('../credentials').credentials
+} catch (ex) {
+    console.log("No credentials file found.");
+}
 // This handles UI elements in the login page. including username and password
 // inputs, error texts, etc.
 const LoginReducer = (state = {
-    username: credentials.username?credentials.username:'',
-    password: credentials.password?credentials.password:'',
+    username: (credentials&&credentials.username)?credentials.username:'',
+    password: (credentials&&credentials.password)?credentials.password:'',
     usernameErrorText: '',
     passwordErrorText: '',
     // If the loading animation is shown
