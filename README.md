@@ -3,7 +3,7 @@ Building a desktop client for Robinhood, planning to support Mac and Windows.
 
 Backend API using [robinhood-node](https://github.com/aurbano/robinhood-node). Frontend implemented with Electron, React-Redux.
 
-Work In Progress (obviously...)
+Project is put on hold because Robinhood is planning to release a web interface next year. Gonna start a new serverside project focusing on managing my account and automating trades.
 
 ## Planned Features:
  - Login to Robinhood (done)
